@@ -7,35 +7,33 @@ function App() {
   const [length, setLength] = useState(8)
   const [password, setPassword] = useState('')
   const [numberAllowd, setNumber] = useState(false)
-  const [characterAllowd, setCharacter] = useState(false)
+  const [symbolAllowd, setSymbol] = useState(false)
 
   const pssordRef=useRef(null)
   const password_generator=useCallback(()=>{
     let pass=''
     let str='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
   if(numberAllowd)str+='0123456789'
-  if(characterAllowd)str+='!#%&*$@/'
-  console.log('ll',length)
+  if(symbolAllowd)str+='!#%&*$@/-#'
+ 
   for(let i=1;i<=length;i++){
     let char=Math.floor(Math.random()*str.length+1)
     pass+=str.charAt(char)
   }
    
     setPassword(pass)
-  },[numberAllowd,characterAllowd,length,setPassword])
- console.log('hhhhhh')
+  },[numberAllowd,symbolAllowd,length,setPassword])
+ 
   useEffect(()=>{
 
     password_generator()
-  },[numberAllowd,characterAllowd,length])
+  },[numberAllowd,symbolAllowd,length])
 
-
-  const copPassword=()=>{
-    console.log(pssordRef.current)
+  const copPassword=useCallback(()=>{
     pssordRef.current?.select()
     pssordRef.current?.setSelectionRange(0,8)
     window.navigator.clipboard.writeText(password)
-  }
+  },[numberAllowd,symbolAllowd,length,setPassword])
 
   return (
     <>
@@ -59,12 +57,13 @@ function App() {
             value={length}
              onChange={(e)=>setLength(e.target.value)}/>
             <label htmlFor=""style={{color:'yellow',marginLeft:'8px'}}>Length:[{length}]</label>
-            <input type="checkbox"  defaultChecked={characterAllowd} onChange={()=>{
-              setCharacter((prev)=>!prev)
+            <input type="checkbox"  defaultChecked={numberAllowd} onChange={()=>{
+              setNumber((prev)=>!prev)
             }}/>
-            <label htmlFor=""style={{color:'yellow',marginLeft:'8px'}}>With Characters</label>
-            <input type="checkbox" defaultChecked={numberAllowd} onChange={()=>{
-              setCharacter((prev)=>!prev)
+            <label htmlFor=""style={{color:'yellow',marginLeft:'8px'}}>With Numbers</label>
+            
+            <input type="checkbox" defaultChecked={symbolAllowd} onChange={()=>{
+              setSymbol((prev)=>!prev)
             }}/>
             <label htmlFor=""style={{color:'yellow',marginLeft:'8px'}}>With symbols</label>
           </div>
