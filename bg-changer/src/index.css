@@ -1,0 +1,20 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+.buttonContainer{
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  padding:1rem 2rem 1rem 2rem;
+  bottom: 12px;
+}
+.btns{
+
+  display: flex;
+  justify-content: center;
+  /* margin-left: 9px; */
+  /* width: 30%; */
+  padding: 0.34rem;
+}
